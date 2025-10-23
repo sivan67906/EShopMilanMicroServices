@@ -1,3 +1,5 @@
+using Catalog.API.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add Services to the Container
@@ -18,6 +20,10 @@ builder.Services.AddMarten(opt =>
 {
     opt.Connection(connectionString!);
 }).UseLightweightSessions();
+
+//seed DB data for development
+if (builder.Environment.IsDevelopment())
+    builder.Services.InitializeMartenWith<CatalogInitialData>();
 
 //Console.WriteLine($"=== CONNECTION DEBUG ===");
 //Console.WriteLine($"Connection String: {connectionString}");

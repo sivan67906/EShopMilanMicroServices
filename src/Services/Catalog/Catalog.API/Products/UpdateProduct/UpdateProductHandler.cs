@@ -1,4 +1,6 @@
 ﻿
+using Catalog.API.Models;
+
 namespace Catalog.API.Products.UpdateProduct;
 
 public record UpdateProductCommand(Guid Id, string Name, List<String> Category, string Description, string ImageFile, decimal Price)

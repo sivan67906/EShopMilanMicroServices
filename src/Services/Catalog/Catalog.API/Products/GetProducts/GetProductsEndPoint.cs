@@ -1,4 +1,6 @@
-﻿namespace Catalog.API.Products.GetProduct;
+﻿using Catalog.API.Models;
+
+namespace Catalog.API.Products.GetProduct;
 
 //public record GetProductsRequest();
 

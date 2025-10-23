@@ -1,5 +1,3 @@
-using BuildingBlocks.Behaviors;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add Services to the Container
@@ -47,6 +45,44 @@ builder.Services.AddMarten(opt =>
 //    }
 //}
 
+//Handle exception using IExceptionHandler
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 var app = builder.Build();
 app.MapCarter();
+
+////global exception handling
+//app.UseExceptionHandler(exceptionHandlerApp =>
+//{
+//    exceptionHandlerApp.Run(async context =>
+//    {
+//        var exception =
+//            context.Features.Get<IExceptionHandlerPathFeature>()?.Error;
+
+//        if (exception is null)
+//        {
+//            return;
+//        }
+
+//        var problemDetails = new ProblemDetails()
+//        {
+//            Title = exception.Message,
+//            Status = StatusCodes.Status500InternalServerError,
+//            Detail = exception.StackTrace
+//        };
+
+//        var logger = context.RequestServices.GetRequiredService<ILogger<Program>>();
+//        logger.LogError(exception, exception.Message);
+
+//        context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+//        context.Response.ContentType = "application/problem+json";
+
+//        await context.Response.WriteAsJsonAsync(problemDetails);
+//    });
+//});
+
+//Handle exception using IExceptionHandler
+app.UseExceptionHandler(opt =>
+{
+
+});
 app.Run();

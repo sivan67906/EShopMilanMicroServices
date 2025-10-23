@@ -1,7 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Http.HttpResults;
-
-namespace Catalog.API.Products.GetProduct;
+﻿namespace Catalog.API.Products.GetProduct;
 
 //public record GetProductsRequest();
 

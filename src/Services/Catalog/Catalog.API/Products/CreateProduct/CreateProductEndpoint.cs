@@ -1,9 +1,4 @@
-﻿using BuildingBlocks.CQRS;
-using Carter;
-using Mapster;
-using MediatR;
-
-namespace Catalog.API.Products.CreateProduct;
+﻿namespace Catalog.API.Products.CreateProduct;
 
 public record CreateProductRequest(string Name, List<String> Category
     , string Description, string ImageFile, decimal Price);

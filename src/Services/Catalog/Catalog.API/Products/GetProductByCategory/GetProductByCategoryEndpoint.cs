@@ -1,7 +1,4 @@
-﻿
-using Catalog.API.Products.GetProductById;
-
-namespace Catalog.API.Products.GetProductByCategory;
+﻿namespace Catalog.API.Products.GetProductByCategory;
 
 //public record GetProductByCategoryRequest();
 

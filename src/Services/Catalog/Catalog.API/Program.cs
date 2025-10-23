@@ -1,15 +1,27 @@
+using BuildingBlocks.Behaviors;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add Services to the Container
-builder.Services.AddCarter();
+var assembly = typeof(Program).Assembly;
+var connectionString = builder.Configuration.GetConnectionString("Database");
+
 builder.Services.AddMediatR(config =>
 {
-    config.RegisterServicesFromAssembly(typeof(Program).Assembly);
+    config.RegisterServicesFromAssembly(assembly);
+    config.AddOpenBehavior(typeof(ValidationBehavior<,>));
 });
 
-var connectionString = builder.Configuration.GetConnectionString("Database");
-Console.WriteLine($"=== CONNECTION DEBUG ===");
-Console.WriteLine($"Connection String: {connectionString}");
+builder.Services.AddValidatorsFromAssembly(assembly);
+builder.Services.AddCarter();
+
+builder.Services.AddMarten(opt =>
+{
+    opt.Connection(connectionString!);
+}).UseLightweightSessions();
+
+//Console.WriteLine($"=== CONNECTION DEBUG ===");
+//Console.WriteLine($"Connection String: {connectionString}");
 
 // Try a direct connection test
 //try
@@ -34,11 +46,6 @@ Console.WriteLine($"Connection String: {connectionString}");
 //        Console.WriteLine($"PostgreSQL Error Code: {pgEx.SqlState}");
 //    }
 //}
-
-builder.Services.AddMarten(opt =>
-{
-    opt.Connection(connectionString!);
-}).UseLightweightSessions();
 
 var app = builder.Build();
 app.MapCarter();

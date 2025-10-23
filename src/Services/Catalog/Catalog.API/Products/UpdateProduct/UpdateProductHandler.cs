@@ -21,12 +21,13 @@ public class UpdateProductCommandValidator
             .GreaterThan(0).WithMessage("Price must be greater than 0");
     }
 }
-internal class UpdateProductCommandHandler(IDocumentSession session, ILogger<UpdateProductCommandHandler> logger)
+internal class UpdateProductCommandHandler(IDocumentSession session)
+    //, ILogger<UpdateProductCommandHandler> logger)
     : ICommandHandler<UpdateProductCommand, UpdateProductResult>
 {
     public async Task<UpdateProductResult> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
     {
-        logger.LogInformation("UpdateProductCommandHandler.Handle with {@command}", command);
+        //logger.LogInformation("UpdateProductCommandHandler.Handle with {@command}", command);
 
         var product = await session.LoadAsync<Product>(command.Id, cancellationToken);
 

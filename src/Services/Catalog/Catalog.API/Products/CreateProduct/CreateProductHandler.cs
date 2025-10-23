@@ -17,7 +17,8 @@ public class CreateProductCommandValidator : AbstractValidator<CreateProductComm
     }
 }
 
-internal class CreateProductCommandHandler(IDocumentSession session, ILogger<CreateProductCommandHandler> logger)
+internal class CreateProductCommandHandler(IDocumentSession session)
+    //, ILogger<CreateProductCommandHandler> logger)
     //, IValidator<CreateProductCommand> validator)
     : ICommandHandler<CreateProductCommand, CreateProductResult>
 {
@@ -29,7 +30,7 @@ internal class CreateProductCommandHandler(IDocumentSession session, ILogger<Cre
         //var errors = result.Errors.Select(x => x.ErrorMessage).ToList();
         //if (errors.Any()) throw new FluentValidation.ValidationException(errors.FirstOrDefault());
 
-        logger.LogInformation("CreateProductCommandHandler.Handle attached with {@command}", command);
+        //logger.LogInformation("CreateProductCommandHandler.Handle attached with {@command}", command);
 
         var product = new Product
         {
